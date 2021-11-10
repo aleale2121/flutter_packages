@@ -1,6 +1,7 @@
 library flutter_timer_countdown;
 
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 enum CountDownTimerFormat {
@@ -70,6 +71,35 @@ class TimerCountdown extends StatefulWidget {
 
   @override
   _TimerCountdownState createState() => _TimerCountdownState();
+}
+
+class ParentBox extends StatelessWidget {
+  final Widget child;
+  final double? width;
+  final double? height;
+  const ParentBox({
+    Key? key,
+    required this.child,
+    this.width,
+    this.height,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      height: this.height ?? 50,
+      width: this.width ?? 50,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.grey[100],
+          border: Border.all(
+            color: Colors.black,
+            width: 1.5,
+          )),
+      child: this.child,
+    );
+  }
 }
 
 class _TimerCountdownState extends State<TimerCountdown> {
@@ -175,9 +205,12 @@ class _TimerCountdownState extends State<TimerCountdown> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          countdownDays,
-          style: widget.timeTextStyle,
+        ParentBox(
+          width: countdownDays.length > 2 ? 80 : 50,
+          child: Text(
+            countdownDays,
+            style: widget.timeTextStyle,
+          ),
         ),
         if (widget.enableDescriptions)
           SizedBox(
@@ -198,9 +231,11 @@ class _TimerCountdownState extends State<TimerCountdown> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          countdownHours,
-          style: widget.timeTextStyle,
+        ParentBox(
+          child: Text(
+            countdownHours,
+            style: widget.timeTextStyle,
+          ),
         ),
         if (widget.enableDescriptions)
           SizedBox(
@@ -221,9 +256,11 @@ class _TimerCountdownState extends State<TimerCountdown> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          countdownMinutes,
-          style: widget.timeTextStyle,
+        ParentBox(
+          child: Text(
+            countdownMinutes,
+            style: widget.timeTextStyle,
+          ),
         ),
         if (widget.enableDescriptions)
           SizedBox(
@@ -244,9 +281,11 @@ class _TimerCountdownState extends State<TimerCountdown> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          countdownSeconds,
-          style: widget.timeTextStyle,
+        ParentBox(
+          child: Text(
+            countdownSeconds,
+            style: widget.timeTextStyle,
+          ),
         ),
         if (widget.enableDescriptions)
           SizedBox(
